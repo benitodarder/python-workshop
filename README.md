@@ -2,6 +2,7 @@
 
 Simple introductory Python 3 programs
 
+* customPackages with some sample unuseful modules, and how to install in order to import them
 * files
     - Compare two files line by line
     - Generate a copy of a text file
