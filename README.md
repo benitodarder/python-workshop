@@ -3,6 +3,9 @@
 Simple introductory Python 3 programs
 
 * customPackages with some sample unuseful modules, and how to install in order to import them
+* django
+    - helloWorld introductory concepts
+        * staticGreetings simpliest use case with a static site
 * files
     - Compare two files line by line
     - Generate a copy of a text file
@@ -12,4 +15,5 @@ Simple introductory Python 3 programs
 * lists
 * pygame
     - Sample star field
+* sockets a simple server/client echo
 * xml

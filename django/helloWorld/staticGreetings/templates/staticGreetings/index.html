@@ -1,0 +1,10 @@
+<h2>Hello world!</h2>
+<br>
+<a href="{% url 'staticGreetings:oldFashionedLink' %}">This is an old fashioned link</a>
+<br><br>
+<form action="{% url 'staticGreetings:greetByName' %}" method="post">
+{% csrf_token %}
+    <label for="name">Please introduce your name:</label>
+    <input type="text" name="name" id="name">
+    <input type="submit" value="Greet by POST">
+</form>
