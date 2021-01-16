@@ -22,4 +22,9 @@ def greetByName(request):
     }
     return HttpResponse(template.render(context, request))    
 
-     
+def dynamicLink(request, name):
+    template = loader.get_template('staticGreetings/greetByNameGET.html')
+    context = {
+        'name': name
+    }
+    return HttpResponse(template.render(context, request))       

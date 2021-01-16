@@ -6,5 +6,6 @@ app_name = 'staticGreetings'
 urlpatterns = [
     path('', views.index, name='index'),
     path('oldFashionedLink', views.oldFashionedLink, name='oldFashionedLink'),
-    path('greetByName', views.greetByName, name='greetByName')
+    path('greetByName', views.greetByName, name='greetByName'),
+    path('<str:name>/dynamicLink', views.dynamicLink, name='dynamicLink')
 ]
