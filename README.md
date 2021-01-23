@@ -15,5 +15,6 @@ Simple introductory Python 3 programs
 * lists
 * pygame
     - Sample star field
+    - Crappy snowy effect... I live in the mediterranean and I'm not quite sure how snow works... :)
 * sockets a simple server/client echo
 * xml
