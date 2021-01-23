@@ -14,7 +14,7 @@ NUMBER_OF_FLAKES = 100
 FLAKE_RADIUS = 3
 FLAKE_RADIUS_BACK = 2
 DEPTHS = 5
-SPEEDS = 5
+SPEEDS = 3
 SCREEN_WIDTH=320 * 3
 SCREEN_HEIGHT=200 * 3
 SCREEN_SIZE = SCREEN_WIDTH, SCREEN_HEIGHT
@@ -54,9 +54,6 @@ def main(args):
                 exitFlag = False    
         
         screen.fill(Background)
-
-        print(len(FloorFlakes))
-        
         
         for i in range(NUMBER_OF_FLAKES):
             currentFlake = Flakes.get(i)
@@ -79,9 +76,10 @@ def main(args):
             pygame.draw.circle(screen, currentFlake.color, (currentFlake.x, currentFlake.y), currentFlake.radius) 
             
             Flakes.put(currentFlake)
-       
+            
         for currentFlake in FloorFlakes:
-            pygame.draw.circle(screen, currentFlake.color, (currentFlake.x, currentFlake.y), currentFlake.radius)         
+            pygame.draw.circle(screen, currentFlake.color, (currentFlake.x, currentFlake.y), currentFlake.radius)   
+            
                                               
         pygame.display.flip() 
 
