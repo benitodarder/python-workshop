@@ -4,6 +4,7 @@ import socket
 def main(args):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((args[1], int(args[2])))
+        print("Bind: " + args[1] + ":" + args[2])
         s.listen()
         conn, addr = s.accept()
         with conn:

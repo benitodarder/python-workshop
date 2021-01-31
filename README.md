@@ -17,4 +17,6 @@ Simple introductory Python 3 programs
     - Sample star field
     - Crappy snowy effect... I live in the mediterranean and I'm not quite sure how snow works... :)
 * sockets a simple server/client echo
+    - server: python server01.py <address> <port>
+    - client: python client01.py <address> <port> <space separated message>
 * xml
