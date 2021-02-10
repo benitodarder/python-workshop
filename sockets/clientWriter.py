@@ -1,3 +1,4 @@
+# Sends arguments, from the third and onwards to the serverListener.py
 import sys
 import socket
 

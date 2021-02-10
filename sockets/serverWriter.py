@@ -1,3 +1,4 @@
+# Writes the arguments, from the third onwards, to the clientListener.py
 import sys
 import socket
 
@@ -9,13 +10,9 @@ def main(args):
         conn, addr = s.accept()
         with conn:
             print('Connected by', addr)
-            received = ''
-            while True:
-                data = conn.recv(1024)
-                if not data:
-                    break            
-                received = received + data.decode()
-        print('Message received: ' + received)  
+            for index, current in enumerate(args):
+                if index > 2:
+                    conn.sendall(bytes(current + ' ','utf-8'))   
     return 0
 
 if __name__ == '__main__':
