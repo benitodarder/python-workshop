@@ -16,7 +16,7 @@ def main(args):
                 if not data:
                     break            
                 received = received + data.decode()
-        print('Message received: ' + received)  
+            print('Message received: ' + received)  
     return 0
 
 if __name__ == '__main__':

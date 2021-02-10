@@ -1,4 +1,4 @@
-# Sends arguments, from the third and onwards to the serverListener.py
+# Reads message from serverWriter.py
 import sys
 import socket
 
@@ -8,6 +8,7 @@ def main(args):
         for index, current in enumerate(args):
             if index > 2:
                 s.sendall(bytes(current + ' ','utf-8'))  
+        print('Message sent')
     return 0
 
 if __name__ == '__main__':

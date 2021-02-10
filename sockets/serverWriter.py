@@ -12,7 +12,8 @@ def main(args):
             print('Connected by', addr)
             for index, current in enumerate(args):
                 if index > 2:
-                    conn.sendall(bytes(current + ' ','utf-8'))   
+                    conn.sendall(bytes(current + ' ','utf-8'))  
+    print('Message sent')
     return 0
 
 if __name__ == '__main__':

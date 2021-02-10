@@ -1,4 +1,4 @@
-# Sends arguments, from the third and onwards to the serverListener.py
+# Sends arguments, from the third and onwards, to the serverListener.py
 import sys
 import socket
 
@@ -11,7 +11,7 @@ def main(args):
             if not data:
                 break            
             received = received + data.decode()
-    print('Message received: ' + received)  
+        print('Message received: ' + received)  
     return 0
 
 if __name__ == '__main__':
