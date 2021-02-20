@@ -33,10 +33,16 @@ class EchoServer (threading.Thread):
     def exitLoop(self):
         self.exitLoop = True       
 
+def usage():
+    print('python echoServerThreading.py <address> <port> <buffer>')
+
 def main(args):
-    server = EchoServer(args[1], int(args[2]), int(args[3]))
-    signal.signal(signal.SIGINT, server.exitLoop)       
-    server.start()
+    if (len(args) != 4):
+        usage()
+    else: 
+        server = EchoServer(args[1], int(args[2]), int(args[3]))
+        signal.signal(signal.SIGINT, server.exitLoop)       
+        server.start()
     return 0
 
 if __name__ == '__main__': 
