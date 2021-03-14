@@ -1,0 +1,47 @@
+<style type="text/css" media="screen">
+.columnId {
+  float: left;
+  width: 3%;
+}
+
+.columnName {
+  float: left;
+  width: 20%;
+}
+
+.columnButton {
+  float: left;
+  width: 3%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+
+<h1>Countries</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<ul>
+    <li><a href="{% url 'dynamicGreetings:editCountry' %}">New country</a></li>
+{% for country in countries %}
+    <li>
+        <form action="{% url 'dynamicGreetings:editCountry' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+              <div class="columnId">{{ country.id }}</div>
+              <div class="columnName">{{ country.name }}</div>
+              <div class="columnButton">
+                  <input type="hidden" name="nameHiddenId" id="idHiddenId" value="{{ country.id}}">
+                  <input type="submit" value="Edit">
+              </div>
+            </div> 
+        </form>
+    </li>
+{% endfor %}
+ <li><a href="{% url 'dynamicGreetings:index' %}">Main</a></li>
+</ul>

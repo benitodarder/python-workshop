@@ -1,0 +1,14 @@
+<h1>Edit Country</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'dynamicGreetings:saveCountry' %}" method="post">
+{% csrf_token %}
+    {% if country != None %}
+        <input type="text" name="nameName" id="idName" value="{{ country.name }}">
+        <input type="hidden" name="nameHiddenId" id="idHiddenId" value="{{ country.id}}">
+    {% else %}
+       <input type="text" name="nameName" id="idName" value="<Country name>">
+    {% endif %}
+    <input type="submit" value="Save">
+</form>

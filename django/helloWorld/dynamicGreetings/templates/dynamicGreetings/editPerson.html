@@ -1,0 +1,18 @@
+<h1>Edit Person</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'dynamicGreetings:savePerson' %}" method="post">
+{% csrf_token %}
+    {% if person != None %}
+        <input type="text" name="nameName" id="idName" value="{{ person.name }}">
+        <input type="text" name="countryId" id="countryId" value="{{ person.nationalty.id }}">
+        <input type="text" name="dateBirth" id="dateBirth" value="{{ person.dateBirth }}">
+        <input type="hidden" name="nameHiddenId" id="idHiddenId" value="{{ person.id}}">
+    {% else %}
+       <input type="text" name="nameName" id="idName" value="<Person name>">
+       <input type="text" name="countryId" id="countryId" value="< Country >">
+       <input type="text" name="dateBirth" id="dateBirth" value="< Birth date >">
+    {% endif %}
+    <input type="submit" value="Save">
+</form>

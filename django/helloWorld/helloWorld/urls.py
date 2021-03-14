@@ -19,5 +19,6 @@ from django.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('staticGreetings/', include('staticGreetings.urls'))
+    path('staticGreetings/', include('staticGreetings.urls')),
+    path('dynamicGreetings/', include('dynamicGreetings.urls'))
 ]

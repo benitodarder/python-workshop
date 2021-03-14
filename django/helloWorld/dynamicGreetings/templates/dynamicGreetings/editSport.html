@@ -1,0 +1,14 @@
+<h1>Edit Sport</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'dynamicGreetings:saveSport' %}" method="post">
+{% csrf_token %}
+    {% if sport != None %}
+        <input type="text" name="nameName" id="idName" value="{{ sport.name }}">
+        <input type="hidden" name="nameHiddenId" id="idHiddenId" value="{{ sport.id}}">
+    {% else %}
+       <input type="text" name="nameName" id="idName" value="<Sport name>">
+    {% endif %}
+    <input type="submit" value="Save">
+</form>

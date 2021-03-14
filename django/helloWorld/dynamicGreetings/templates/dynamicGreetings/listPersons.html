@@ -1,0 +1,49 @@
+<style type="text/css" media="screen">
+.columnId {
+  float: left;
+  width: 3%;
+}
+
+.columnName {
+  float: left;
+  width: 20%;
+}
+
+.columnButton {
+  float: left;
+  width: 3%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+
+<h1>Persons</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<ul>
+    <li><a href="{% url 'dynamicGreetings:editPerson' %}">New person</a></li>
+{% for person in persons %}
+    <li>
+        <form action="{% url 'dynamicGreetings:editPerson' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+              <div class="columnId">{{ person.id }}</div>
+              <div class="columnName">{{ person.name }}</div>
+              <div class="columnName">{{ person.nationalty.name }}</div>
+              <div class="columnName">{{ person.dateBirth }}</div>
+              <div class="columnButton">
+                  <input type="hidden" name="nameHiddenId" id="idHiddenId" value="{{ person.id}}">
+                  <input type="submit" value="Edit">
+              </div>
+            </div> 
+        </form>
+    </li>
+{% endfor %}
+ <li><a href="{% url 'dynamicGreetings:index' %}">Main</a></li>
+</ul>
