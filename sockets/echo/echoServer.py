@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # Echoes recieved message
 import sys
 import socket
@@ -17,9 +20,14 @@ def main(args):
             with conn:
                 print('Connected by', addr)
                 data = conn.recv(int(args[3]))
-                print('Message received: ' + data.decode())  
-                conn.sendall(bytes(data.decode() + ' ','utf-8'))  
-                print('Message echoed!')  
+                while data:
+                    print('Message received: \'' + data.decode() + '\'')  
+                    conn.sendall(bytes(data.decode() + ' ','utf-8'))  
+                    print('Message echoed!')
+                    data = conn.recv(int(args[3]))
+                conn.shutdown(socket.SHUT_RDWR)
+                conn.close()  
+            s.close()
     return 0
 
 if __name__ == '__main__':
