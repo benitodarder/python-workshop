@@ -24,9 +24,11 @@ class EchoServer (threading.Thread):
                     print('Connected by', addr)
                     while not self.exitLoop:
                         data = conn.recv(int(self.bufferSize))
-                        print('Message received: ' + data.decode())  
-                        conn.sendall(bytes(data.decode() + ' ','utf-8'))
-                        print('Message echoed')
+                        while data:
+                            print('Message received: \'' + data.decode() + '\'')  
+                            conn.sendall(bytes(data.decode(),'utf-8'))  
+                            print('Message echoed!')
+                            data = conn.recv(int(self.bufferSize))
             except ConnectionResetError:
                 print('As it turns out a CorrectionResetError have been catch')
                     

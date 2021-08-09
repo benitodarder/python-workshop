@@ -20,8 +20,12 @@ class EchoClient (threading.Thread):
                 while not self.exitLoop:
                     current = input('Message: ')
                     s.sendall(bytes(current + ' ','utf-8'))  
-                    data = s.recv(self.bufferSize)
-                    print('Message received: ' + data.decode())               
+                    dataReceivedLength = 0
+                    dataSentLength = len(current)
+                    while dataReceivedLength < dataSentLength:
+                        data = s.recv(self.bufferSize)
+                        dataReceivedLength = dataReceivedLength + len(data)
+                        print('Message received: \'' + data.decode() + '\'')                                                      
             except ConnectionResetError:
                 print('As it turns out a CorrectionResetError have been catch')
                 

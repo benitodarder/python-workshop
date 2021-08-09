@@ -17,7 +17,7 @@ def main(args):
             for index, current in enumerate(args):
                 if index > 3:
                     dataSentLength = dataSentLength + len(current)
-                    s.send(bytes(current + ' ','utf-8'))  
+                    s.send(bytes(current,'utf-8'))  
             print('Message sent')
             dataReceivedLength = 0
             while dataReceivedLength < dataSentLength:

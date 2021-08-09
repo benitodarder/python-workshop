@@ -22,7 +22,7 @@ def main(args):
                 data = conn.recv(int(args[3]))
                 while data:
                     print('Message received: \'' + data.decode() + '\'')  
-                    conn.sendall(bytes(data.decode() + ' ','utf-8'))  
+                    conn.sendall(bytes(data.decode(),'utf-8'))  
                     print('Message echoed!')
                     data = conn.recv(int(args[3]))
                 conn.shutdown(socket.SHUT_RDWR)
