@@ -23,7 +23,7 @@ def main(args):
             while dataReceivedLength < dataSentLength:
                 data = s.recv(int(args[3]))
                 dataReceivedLength = dataReceivedLength + len(data)
-                print('Message received: \'' + data.decode() + '\'')  
+                print('Message received: \'' + data.decode() + '\'')
             s.shutdown(socket.SHUT_RDWR)
             s.close()
     return 0

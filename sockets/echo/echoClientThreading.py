@@ -19,16 +19,18 @@ class EchoClient (threading.Thread):
             try:
                 while not self.exitLoop:
                     current = input('Message: ')
-                    s.sendall(bytes(current + ' ','utf-8'))  
-                    dataReceivedLength = 0
+                    s.sendall(bytes(current,'utf-8'))  
                     dataSentLength = len(current)
+                    dataReceivedLength = 0
                     while dataReceivedLength < dataSentLength:
-                        data = s.recv(self.bufferSize)
+                        data = s.recv(int(self.bufferSize))
                         dataReceivedLength = dataReceivedLength + len(data)
-                        print('Message received: \'' + data.decode() + '\'')                                                      
+                        print('Message received: \'' + data.decode() + '\'')               
             except ConnectionResetError:
                 print('As it turns out a CorrectionResetError have been catch')
-                
+            finally:
+                s.shutdown(socket.SHUT_RDWR)
+                s.close()
     def exitLoop(self):
         self.exitLoop = True
 

@@ -14,25 +14,33 @@ class EchoServer (threading.Thread):
       self.exitLoop = False
      
     def run(self):
+        print('Thread run started')
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((self.host, self.port))
+            print('Socked address bind')
             s.listen()
-            try:
-                conn, addr = s.accept()
-                print('Waiting for incoming connection')
-                with conn:
+            print('Socket listening')
+            conn, addr = s.accept()
+            print('Waiting for incoming connection')
+            with conn:
+                try:
                     print('Connected by', addr)
                     while not self.exitLoop:
                         data = conn.recv(int(self.bufferSize))
                         while data:
-                            print('Message received: \'' + data.decode() + '\'')  
-                            conn.sendall(bytes(data.decode(),'utf-8'))  
-                            print('Message echoed!')
+                            print('Message received: ' + data.decode())  
+                            conn.sendall(bytes(data.decode(),'utf-8'))
+                            print('Message echoed')
                             data = conn.recv(int(self.bufferSize))
-            except ConnectionResetError:
-                print('As it turns out a CorrectionResetError have been catch')
-                    
+                except ConnectionResetError:
+                    print('As it turns out a CorrectionResetError have been catch')
+                except ConnectionAbortedError:
+                    print('As it turns out a ConnectionAbortedError have been catch')
+                finally:
+                    conn.close()
+                    s.close()
     def exitLoop(self):
+        print('Signal caught')
         self.exitLoop = True       
 
 def usage():
