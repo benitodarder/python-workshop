@@ -3,8 +3,8 @@
 Simple echo console apps.
 
 * One message:
-    * <winpty> python echoServer.py <address> <port> <buffer>
-    * <winpty> python echoClient.py <address> <port> <buffer> <messages>
+    * &lt;winpty&gt; python echoServer.py &lt;address&gt; &lt;port&gt; &lt;buffer&gt;
+    * &lt;winpty&gt; python echoClient.py &lt;address&gt; &lt;port&gt; &lt;buffer&gt; &lt;messages&gt;
 * Endless messages, a kinda one-way chat:
-    * <winpty> python echoServerThreading.py <address> <port> <buffer>
-    * <winpty> python echoClientThreading.py <address> <port> <buffer>
+    * &lt;winpty&gt; python echoServerThreading.py &lt;address&gt; &lt;port&gt; &lt;buffer&gt;
+    * &lt;winpty&gt; python echoClientThreading.py &lt;address&gt; &lt;port&gt; &lt;buffer&gt;
