@@ -4,6 +4,7 @@
 # Echoes recieved message
 import sys
 import socket
+import os
 
 def usage():
     print('python echoServer.py <address> <port> <buffer>')
@@ -13,6 +14,7 @@ def main(args):
         usage()
     else:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            print("Current pid: " + str(os.getpid()))
             s.bind((args[1], int(args[2])))
             print("Bind: " + args[1] + ":" + args[2])
             s.listen()

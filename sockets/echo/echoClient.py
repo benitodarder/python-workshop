@@ -1,8 +1,10 @@
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Read echoed message
 import sys
 import socket
+import os
 
 def usage():
     print('python echoClient.py <address> <port> <buffer> <messages>')
@@ -12,6 +14,7 @@ def main(args):
         usage()
     else:    
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            print("Current pid: " + str(os.getpid()))
             s.connect((args[1], int(args[2])))
             dataSentLength = 0
             for index, current in enumerate(args):

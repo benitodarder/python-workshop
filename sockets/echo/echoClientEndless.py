@@ -4,6 +4,7 @@ import signal
 import socket
 import sys
 import threading
+import os
 
 class EchoClient (threading.Thread):
     def __init__(self, host, port, bufferSize):
@@ -14,23 +15,24 @@ class EchoClient (threading.Thread):
       self.exitLoop = False
      
     def run(self):
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect((self.host, self.port))
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as outputSocket:
+            print("Current pid: " + str(os.getpid()))
+            outputSocket.connect((self.host, self.port))
             try:
                 while not self.exitLoop:
                     current = input('Message: ')
-                    s.sendall(bytes(current,'utf-8'))  
+                    outputSocket.sendall(bytes(current,'utf-8'))  
                     dataSentLength = len(current)
                     dataReceivedLength = 0
                     while dataReceivedLength < dataSentLength:
-                        data = s.recv(int(self.bufferSize))
+                        data = outputSocket.recv(int(self.bufferSize))
                         dataReceivedLength = dataReceivedLength + len(data)
                         print('Message received: \'' + data.decode() + '\'')               
             except ConnectionResetError:
                 print('As it turns out a CorrectionResetError have been catch')
             finally:
-                s.shutdown(socket.SHUT_RDWR)
-                s.close()
+                outputSocket.shutdown(socket.SHUT_RDWR)
+                outputSocket.close()
     def exitLoop(self):
         self.exitLoop = True
 
