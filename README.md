@@ -2,6 +2,7 @@
 
 Simple introductory Python 3 programs
 
+* aws with some simple sketches
 * customPackages with some sample unuseful modules, and how to install in order to import them
 * django
    - helloWorld introductory concepts
