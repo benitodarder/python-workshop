@@ -6,5 +6,6 @@ This is a sample custom package creation/installation and some verification prog
     - --user to avoid disturbing system wide modules/packages
 * To check package is present: pip freeze
 * To uninstall: pip uninstall <package name, as defined in setup.py>
+* Use verifyPackages01.py to test the package installation
 
 
