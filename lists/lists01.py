@@ -7,21 +7,13 @@ def main(args):
     for i in range(NUMBER_OF_ELEMENTS):
         elements.append(i)    
     
-    print("Initial list: " + str(elements))
+    print('Initial list: ' + str(elements))
     
-    print("Iterate through the list in reverse order and pop element.")
+    print('Iterate through the list in reverse order and pop element.')
     for i in reversed(range(NUMBER_OF_ELEMENTS)):
-        print("Removing index: " + str(i) + ", value: " + str(elements.pop()))
-        elements.append(i)
+        print('Removing index: ' + str(i) + ', value: ' + str(elements.pop()))
     
-    print("List after poping" + str(elements))
-    
-    print("Iterate through the list in reverse order and pop last element.")
-    for i in reversed(range(NUMBER_OF_ELEMENTS)):
-        print("Removing index: " + str(i) + ", value: " + str(elements.pop()))
-        elements.append(i)
-    
-    print("List after poping" + str(elements))   
+    print('List after poping' + str(elements))
     
     return 0
 
