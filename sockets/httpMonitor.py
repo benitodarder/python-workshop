@@ -108,7 +108,7 @@ class HTTPMonitor (threading.Thread):
     self.exitLoop = True       
 
 def usage():
-  print('python HTTPMonitor.py <source address> <source port> <destination address> <destination port> <buffer>')
+  print('python httpMonitor.py <source address> <source port> <destination address> <destination port> <buffer>')
 
 def main(args):
   if (len(args) != 6):
