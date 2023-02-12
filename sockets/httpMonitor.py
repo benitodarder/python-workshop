@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 CONTENT_LENGTH="Content-Length: "
-HEADER_BODY_SEPARATOR="\r\n"
+CHAR_CR="\r"
+CHAR_LF="\n"
+HEADER_BODY_SEPARATOR=CHAR_CR + CHAR_LF
 
 import signal
 import socket
@@ -46,10 +48,10 @@ class TCPMonitor (threading.Thread):
             while len(message) == 0 or message[len(message)-1] != HEADER_BODY_SEPARATOR:
               char = connIN.recv(1).decode()
               line = line + char
-              if char == "\r":
+              if char == CHAR_CR:
                 char = connIN.recv(1).decode()
                 line = line + char
-                if char == "\n":
+                if char == CHAR_LF:
                   message.append(line)
                   if line.startswith(CONTENT_LENGTH):
                     contentLength = line[len(CONTENT_LENGTH)::].strip()
@@ -75,10 +77,10 @@ class TCPMonitor (threading.Thread):
             while len(message) == 0 or message[len(message)-1] != HEADER_BODY_SEPARATOR:
               char = outpuSocket.recv(1).decode()
               line = line + char
-              if char == "\r":
+              if char == CHAR_CR:
                 char = outpuSocket.recv(1).decode()
                 line = line + char
-                if char == "\n":
+                if char == CHAR_LF:
                   message.append(line)
                   if line.startswith(CONTENT_LENGTH):
                     contentLength = line[len(CONTENT_LENGTH)::].strip()
@@ -91,8 +93,8 @@ class TCPMonitor (threading.Thread):
             print("- Response body:\n" + body, end="")            
             for i,line in enumerate(message):
               connIN.sendall(bytes(line,'utf-8'))
-            connIN.sendall(bytes(body,'utf-8'))             
-            print("***********************************************************************************************")
+            connIN.sendall(bytes(body,'utf-8'))   
+            print("\n***********************************************************************************************")                                
         except ConnectionResetError:
           print('As it turns out a CorrectionResetError have been catch')
         except ConnectionAbortedError:
