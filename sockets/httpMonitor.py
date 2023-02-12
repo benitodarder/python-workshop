@@ -13,7 +13,7 @@ import os
 
 
 
-class TCPMonitor (threading.Thread):
+class HTTPMonitor (threading.Thread):
 
   def __init__(self, hostIN, portIN, hostOUT, portOUT, bufferSize):
     threading.Thread.__init__(self)
@@ -94,7 +94,7 @@ class TCPMonitor (threading.Thread):
             for i,line in enumerate(message):
               connIN.sendall(bytes(line,'utf-8'))
             connIN.sendall(bytes(body,'utf-8'))   
-            print("\n***********************************************************************************************")                                
+            print("\n***********************************************************************************************")
         except ConnectionResetError:
           print('As it turns out a CorrectionResetError have been catch')
         except ConnectionAbortedError:
@@ -108,13 +108,13 @@ class TCPMonitor (threading.Thread):
     self.exitLoop = True       
 
 def usage():
-  print('python TCPMonitor.py <source address> <source port> <destination address> <destination port> <buffer>')
+  print('python HTTPMonitor.py <source address> <source port> <destination address> <destination port> <buffer>')
 
 def main(args):
   if (len(args) != 6):
     usage()
   else: 
-    server = TCPMonitor(args[1], int(args[2]), args[3], int(args[4]), int(args[5]))
+    server = HTTPMonitor(args[1], int(args[2]), args[3], int(args[4]), int(args[5]))
     signal.signal(signal.SIGINT, server.exitLoop)       
     server.start()
   return 0

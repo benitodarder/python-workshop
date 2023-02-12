@@ -21,7 +21,7 @@ Simple introductory Python 3 programs
 * sockets a simple server/client echo
    - server: python server01.py <address> <port>
    - client: python client01.py <address> <port> <space separated message>
-   - http monitor: simple http bridge to get request/response headers and body
+   - http monitor: simple http bridge to get request/response headers and body... Currently only supports one client
 * threads
    - Thread for Python 2
    - Threading for Python 3
