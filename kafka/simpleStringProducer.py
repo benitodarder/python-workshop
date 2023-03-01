@@ -2,7 +2,6 @@ from kafka import KafkaProducer
 import json
 import sys
 
-
 def main(args):
   if (len(args) != 5):
     usage(args)
@@ -14,7 +13,9 @@ def main(args):
                                 acks='all',
                                 retries = 3)      
       message = open(args[4], "r")  
-      producer.send(args[3], message.read())
+      future = producer.send(args[3], message.read())
+      producer.flush()
+      future.get(timeout=60)
     except:
       print("Unexpected exception: ",sys.exc_info()[0])
   return 0

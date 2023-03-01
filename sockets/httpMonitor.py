@@ -25,22 +25,22 @@ class HTTPMonitor (threading.Thread):
     self.exitLoop = False
      
   def run(self):
-    print('Thread run started')
+    print("Thread run started")
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as inputSocket, socket.socket(socket.AF_INET, socket.SOCK_STREAM) as outpuSocket:
       print("Current pid: " + str(os.getpid()))
       inputSocket.bind((self.hostIN, self.portIN))
-      print('Input socked address bind')
+      print("Input socked address bind")
       outpuSocket.connect((self.hostOUT, self.portOUT))
-      print('Output socket connected')
+      print("Output socket connected")
       inputSocket.listen()
-      print('Input socket listening')
+      print("Input socket listening")
       connIN, addr = inputSocket.accept()
-      print('Waiting for incoming connection')
+      print("Waiting for incoming connection")
       with connIN:
         try:
-          print('Connected by', addr)
+          print("Connected by", addr)
           while not self.exitLoop:
-            print('Waiting for request... ')
+            print("Waiting for request... ")
             message = []
             line = ""
             body = ""
@@ -62,13 +62,15 @@ class HTTPMonitor (threading.Thread):
             print("- Request headers: ");
             for i,line in enumerate(message):
               print(line, end="")
-            print("- Request body:\n" + body, end="")            
-            for i,line in enumerate(message):
-              outpuSocket.sendall(bytes(line,'utf-8'))
-            outpuSocket.sendall(bytes(body,'utf-8'))
+            print("- Request body:\n" + body, end="")
             print("-----------------------------------------------------------------------------------------------")
-            print('Message sent to target...')
-            print('Waiting for response...')
+            print("Sending headers...")            
+            for i,line in enumerate(message):
+              outpuSocket.sendall(bytes(line,"utf-8"))
+            print("Sending body...")
+            outpuSocket.sendall(bytes(body,"utf-8"))
+            print("Message sent to target...")
+            print("Waiting for response...")
             print("-----------------------------------------------------------------------------------------------")
             message = []
             line = ""
@@ -92,23 +94,23 @@ class HTTPMonitor (threading.Thread):
               print(line, end="")
             print("- Response body:\n" + body, end="")            
             for i,line in enumerate(message):
-              connIN.sendall(bytes(line,'utf-8'))
-            connIN.sendall(bytes(body,'utf-8'))   
+              connIN.sendall(bytes(line,"utf-8"))
+            connIN.sendall(bytes(body,"utf-8"))   
             print("\n***********************************************************************************************")
         except ConnectionResetError:
-          print('As it turns out a CorrectionResetError have been catch')
+          print("As it turns out a CorrectionResetError have been catch")
         except ConnectionAbortedError:
-          print('As it turns out a ConnectionAbortedError have been catch')
+          print("As it turns out a ConnectionAbortedError have been catch")
         finally:
           inputSocket.close()
           outpuSocket.close()
 
   def exitLoop(self):
-    print('Signal caught')
+    print("Signal caught")
     self.exitLoop = True       
 
 def usage():
-  print('python httpMonitor.py <source address> <source port> <destination address> <destination port> <buffer>')
+  print("python httpMonitor.py <source address> <source port> <destination address> <destination port> <buffer>")
 
 def main(args):
   if (len(args) != 6):
@@ -119,5 +121,5 @@ def main(args):
     server.start()
   return 0
 
-if __name__ == '__main__': 
+if __name__ == "__main__": 
   sys.exit(main(sys.argv))
