@@ -30,10 +30,10 @@
 #  
 #  For more information, please refer to <https://unlicense.org>
 #  
-import package01
+import package_01
 
 def main(args):
-    package01.msg()
+    package_01.msg()
     return 0
 
 if __name__ == '__main__':
