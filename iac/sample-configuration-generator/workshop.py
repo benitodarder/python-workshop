@@ -1,32 +1,81 @@
-import sys
+import pprint
 import re
+import sys
+
 
 from variables import Variable
 
-VARIABLE_START = 'variable ".*"'
+VARIABLE_START = r'.*variable\s*"(.*)"'
+CURLY_BRACE_OPEN = r'{'
+CURLY_BRACE_CLOSE = r'}'
+TYPE_START = r'.*type\s*=\s*(string|number|bool|list|set|map|object|tuple)'
+OBJECT_START = r'\({'
+OBJECT_END = r'\})'
+
+def generate_variables_dictionary(filename):
+  curly_braces_count = 0
+  error_found = False
+  variables_dictionary = {}
+  with open(filename, "r", newline="") as input_file:
+    line = input_file.readline()
+    while line:
+      variable_extracted = False
+      while line and not variable_extracted:
+        variable_line = re.search(VARIABLE_START, line)
+        if variable_line:
+          variable_name = variable_line.group(1)
+          print(f"New variables: {variable_name}; curly braces count: {curly_braces_count}")
+          if curly_braces_count != 0:
+            raise Exception("Error, new variable start found while processing one")
+          elif variable_name in variables_dictionary:
+            raise Exception("Error, duplicated variable")           
+          else:
+            variables_dictionary[variable_name] = []
+            current_list = variables_dictionary[variable_name]
+        curly_braces_open = re.search(CURLY_BRACE_OPEN, line)
+        if curly_braces_open:
+          curly_braces_count = curly_braces_count + 1
+        curly_braces_close = re.search(CURLY_BRACE_CLOSE, line)
+        if curly_braces_close:
+          curly_braces_count = curly_braces_count - 1
+          if curly_braces_open == 0:
+            variable_extracted = True
+            curly_braces_count = 0
+        current_list.append(line.strip())
+        line = input_file.readline()
+  return variables_dictionary
+
 
 def main(args):
+  try:
     print("Testing... Testing...")
-    oneVariable = Variable('var name', 'var type', [], None)
+    one_variable = Variable('var name', 'var type', [], None)
     print("We create a variable... This one: ")
-    print(oneVariable)
-    anotherVariable = Variable('var name too', 'var type too', [], None)
-    variables = [oneVariable, anotherVariable]
+    print(one_variable)
+    another_variable = Variable('var name too', 'var type too', [], None)
+    variables = [one_variable, another_variable]
     print("Several variables in a list...")
     print(variables)
-    anotherVariableToo = Variable('That''s a big one...', 'var type too', variables, None)
+    another_variable_too = Variable('That''s a big one...', 'var type too', variables, None)
     print("Let's see a variable with fields...")
-    print(anotherVariableToo)
+    print(another_variable_too)
+    print("Reset the list...")
+    variables = []
+    print(variables)
     if len(args) > 1:
-        inputFile = open(args[1], 'r')    
-        for line in inputFile:
-            match = re.search(VARIABLE_START, line)
-            if match:
-                print(f"New variable start: {line}")
+      variables_dictionary = generate_variables_dictionary(args[1])
+      print("Variables in dictionary...")
+      print(variables_dictionary)
     print("That's all...")
-    return 0
+  except Exception as e:
+    if hasattr(e, 'message'):
+        msg = e.message
+    else:
+        msg = e
+    print(f"Unexpected exception: {msg}")
+  return 0
 
 if __name__ == '__main__':
-    sys.exit(main(sys.argv))
+  sys.exit(main(sys.argv))
 
 
