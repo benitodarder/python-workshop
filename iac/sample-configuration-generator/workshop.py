@@ -4,11 +4,14 @@ import sys
 
 
 from variables import Variable
+from variables import VariableType
 
 VARIABLE_START = r'.*variable\s*"(.*)"'
 CURLY_BRACE_OPEN = r'{'
 CURLY_BRACE_CLOSE = r'}'
-TYPE_START = r'.*type\s*=\s*(string|number|bool|list|set|map|object|tuple)'
+TYPE_START = 'type'
+TYPE_END = '=\s*(' + str(VariableType.types_regex()) + ')(|\(' + str(VariableType.types_regex()) +')'
+TYPE_DEFINITION = r'.*' + TYPE_START + '\s*' + TYPE_END
 OBJECT_START = r'\({'
 OBJECT_END = r'\})'
 
@@ -45,27 +48,49 @@ def generate_variables_dictionary(filename):
         line = input_file.readline()
   return variables_dictionary
 
+def get_type_string(lines: list) -> str:
+  for line in lines:
+    simple_type = re.search(TYPE_DEFINITION, line)
+    complex_type = re.search(TYPE_END, line)
+    if simple_type:
+      return simple_type.group(1)
+    elif complex_type:
+      return complex_type.group(1)
+  raise Exception('Could not get variable type')
+
+def genera_variable(variable_name: str, lines: list):
+  
+  return Variable(variable_name, VariableType[get_type_string(lines)], [], None)
+
+
 
 def main(args):
   try:
     print("Testing... Testing...")
-    one_variable = Variable('var name', 'var type', [], None)
+    one_variable = Variable('var name', VariableType['string'], [], None)
     print("We create a variable... This one: ")
     print(one_variable)
-    another_variable = Variable('var name too', 'var type too', [], None)
+    another_variable = Variable('var name too', VariableType['number'], [], None)
     variables = [one_variable, another_variable]
     print("Several variables in a list...")
     print(variables)
-    another_variable_too = Variable('That''s a big one...', 'var type too', variables, None)
+    another_variable_too = Variable('That''s a big one...', VariableType['bool'], variables, None)
     print("Let's see a variable with fields...")
     print(another_variable_too)
     print("Reset the list...")
+    print(f"Valid types: {str(VariableType.types_regex())}")
+    print(f"Type regex: {TYPE_DEFINITION}'")
     variables = []
     print(variables)
     if len(args) > 1:
       variables_dictionary = generate_variables_dictionary(args[1])
       print("Variables in dictionary...")
       print(variables_dictionary)
+      variables = []
+      for key in variables_dictionary:
+        variables.append(genera_variable(key, variables_dictionary[key]))
+      print("Variables...")
+      print(variables)
     print("That's all...")
   except Exception as e:
     if hasattr(e, 'message'):
