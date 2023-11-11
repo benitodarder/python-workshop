@@ -92,7 +92,7 @@ def genera_variable(variable_name: str, lines: list):
       case VariableType.list |VariableType.set | VariableType.object | VariableType.map:
         return VariableCollection(variable_name, variable_type, None, VariableType[get_collected_type(lines)])
       case VariableType.tuple:
-        return VariableTuple(variable_name, variable_type, None, get_collected_type_for_tuple(lines))
+        return VariableTuple(variable_name, None, get_collected_type_for_tuple(lines))
   raise Exception(f'Could not create a variable: {lines}')
 
 
@@ -103,12 +103,12 @@ def main(args):
     one_variable = Variable('var name', VariableType['string'], None)
     print("We have create a variable... This one: ")
     print(one_variable)
-    another_variable = VariableNumeric('var name too', VariableType.number, 666)
+    another_variable = VariableNumeric('var name too',  666)
     print("We have created another variable...")
     variables = [one_variable, another_variable]
     print("Several variables in a list...")
     print(variables)
-    another_variable_too = VariableBoolean('That''s a big one...', VariableType.boolean, True)
+    another_variable_too = VariableBoolean('That''s a big one...', True)
     print("Let's see a variable with fields...")
     print(another_variable_too)
     print("Reset the list...")
