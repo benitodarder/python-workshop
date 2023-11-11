@@ -14,6 +14,7 @@ Simple introductory Python 3 programs
    - Generate a file with stated number of random files
    - HTTP message reader
 * helloWorld, and some uses of __main__ and __name__
+* iac, sample IAC related concept proofs
 * lists
 * pygame
    - Sample star field
