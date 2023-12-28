@@ -19,6 +19,8 @@ Simple introductory Python 3 programs
 * pygame
    - Sample star field
    - Crappy snowy effect... I live in the mediterranean and I'm not quite sure how snow works... :)
+* regex
+    - Regex groups
 * sockets a simple server/client echo
    - server: python server01.py <address> <port>
    - client: python client01.py <address> <port> <space separated message>
