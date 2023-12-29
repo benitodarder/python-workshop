@@ -11,4 +11,4 @@ Add *pygame* to the user library (omit *--user* for system wide installation) us
 Current programs:
 
 * python3 snow_01.py
-* python3 starts_01.py
+* python3 stars_01.py
