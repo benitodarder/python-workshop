@@ -4,7 +4,10 @@ import sys
 def main(args):
   try:
     print("Regex tester")
-    if len(args) == 3:
+    if len(args) != 3:
+      print(f"Usage: {args[0]} <Source file> <Regex expression>")
+      print("Regex between quotes as includes parentesis")
+    else:
       file_name = args[1]
       regex = args[2]
       input_text = ""
